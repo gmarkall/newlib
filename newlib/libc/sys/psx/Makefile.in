@@ -436,6 +436,7 @@ uninstall-am:
 
 
 install-data-local:
+	$(mkinstalldirs) $(DESTDIR)$(tooldir)/include; \
 	for i in $(srcdir)/include/*.h; do \
 	  $(INSTALL_DATA) $$i $(DESTDIR)$(tooldir)/include/`basename $$i`; \
 	done;
