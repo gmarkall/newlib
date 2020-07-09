@@ -2532,6 +2532,13 @@ case "${target}" in
 	script_list="ddb ddb-kseg0 nullmon"
 	bsp_list="libpmon.a libnullmon.a"
 	;;
+  mips*-psx*-*)
+	crt0="crt0_cfe.o crt0.o"
+        part_specific_obj="vr4300.o cma101.o"
+	part_specific_defines=
+        script_list="idt pmon ddb ddb-kseg0 lsi cfe idtecoff nullmon sde32 sde64 mti32 mti64 mti64_n32 mti64_64"
+        bsp_list="libidt.a libpmon.a liblsi.a libcfe.a libnullmon.a libpsxsys.a"
+        ;;
   *)
 	crt0="crt0_cfe.o crt0.o"
         part_specific_obj="vr4300.o cma101.o"
