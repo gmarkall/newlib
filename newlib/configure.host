@@ -444,6 +444,10 @@ case "${host}" in
 	posix_dir=posix
 	unix_dir=unix
 	;;
+  mips*-psx-*)
+        sys_dir=psx
+        have_crt0="no"
+        ;;
   *-*-rtems*)			# generic RTEMS support
 	sys_dir=rtems
 	posix_dir=posix
