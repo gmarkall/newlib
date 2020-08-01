@@ -1,5 +1,5 @@
 /* From https://github.com/impiaaa/psx-newlib
- * Commit  1647b6e
+ * Commit 1647b6e
  * License: BSD 3-clause */
 
 /* Linker script for Sony PlayStation */
@@ -8,7 +8,6 @@ ENTRY(_start)
 STARTUP(crt0.o)
 OUTPUT_ARCH("mips:3000")
 OUTPUT_FORMAT("elf32-bigmips", "elf32-bigmips", "elf32-littlemips")
-GROUP(-lc -lpsxsys -lgcc)
 SEARCH_DIR(.)
 __DYNAMIC  =  0;
 
@@ -17,7 +16,7 @@ PROVIDE (__stack = 0x801ffff0);
 /*
  * Initalize some symbols to be zero so we can reference them in the
  * crt0 without core dumping. These functions are all optional, but
- * we do this so we can have our crt0 always use them if they exist. 
+ * we do this so we can have our crt0 always use them if they exist.
  * This is so BSPs work better when using the crt0 installed with gcc.
  * We have to initalize them twice, so we multiple object file
  * formats, as some prepend an underscore.
@@ -28,7 +27,7 @@ PROVIDE (hardware_hazard_hook = 0);
 PROVIDE (software_init_hook = 0);
 
 SECTIONS
-{	
+{
   . = 0x80010000;
   .text : {
      _ftext = . ;
@@ -46,7 +45,7 @@ SECTIONS
      etext  =  .;
      _etext  =  .;
   }
-  
+
   .eh_frame_hdr : { *(.eh_frame_hdr) }
   .eh_frame :
   {
@@ -101,6 +100,13 @@ SECTIONS
     *(.rodata.*)
     *(.gnu.linkonce.r.*)
   }
+
+  /* Needed to prevent error about overlap with .data even if it doesn't appear
+   * in the final output. (I'm unclear as to why!) */
+  .rel.dyn : {
+    *(.rel.dyn)
+  }
+
    _fdata = ALIGN(16);
   . = _fdata;
   .data : {
@@ -146,7 +152,7 @@ SECTIONS
    _end = .;
 
   /* DWARF debug sections.
-     Symbols in the DWARF debugging sections are relative to 
+     Symbols in the DWARF debugging sections are relative to
      the beginning of the section so we begin them at 0.  */
 
   /* DWARF 1 */
